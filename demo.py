@@ -32,6 +32,6 @@ def get_data():
             }
             df = df.append(item, ignore_index=True)
         print(f'\r第{page}/40页数据已经采集', end='')
-    df.to_csv('采集数据.csv',index=None)
+    df.to_excel('采集数据.xlsx',index=None)
 
 get_data()
