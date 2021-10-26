@@ -1,7 +1,5 @@
 import requests
 import pandas as pd
-import re
-import json
 from lxml import etree
 
 headers = {
