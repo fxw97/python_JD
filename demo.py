@@ -1,6 +1,9 @@
 import requests
 import pandas as pd
 from lxml import etree
+import time
+import json
+import re
 
 headers = {
     # "Accept-Encoding": "Gzip",  # 使用gzip压缩传输数据让访问更快
@@ -13,6 +16,28 @@ def get_html(page):
     r = requests.get(url, headers=headers, timeout=6)
     return r
 
+
+# 获取评论信息
+def get_comment(productId):
+    time.sleep(3)
+    url = 'https://club.jd.com/comment/skuProductPageComments.action?'
+    params = {
+        'callback': 'fetchJSON_comment98',
+        'productId': productId,
+        'score': 0,
+        'sortType': 6,
+        'page': 0,
+        'pageSize': 10,
+        'isShadowSku': 0,
+        'fold': 1,
+    }
+
+    r = requests.get(url, headers=headers, params=params, timeout=6)
+    comment_data = re.findall(r'fetchJSON_comment98\((.*)\)', r.text)[0]
+    comment_data = json.loads(comment_data)
+    comment_summary = comment_data['productCommentSummary']
+
+    return comment_summary
 
 def get_data():
     df = pd.DataFrame(columns=['productId', 'price', 'name', 'shop', '自营'])
@@ -30,6 +55,6 @@ def get_data():
             }
             df = df.append(item, ignore_index=True)
         print(f'\r第{page}/40页数据已经采集', end='')
-    df.to_excel('采集数据.xlsx',index=None)
+    df.to_excel('采集数据.xlsx',index=False)
 
 get_data()

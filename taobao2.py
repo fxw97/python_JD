@@ -91,4 +91,4 @@ data = pd.DataFrame([name_list,
                     index=['name','price','deal','shop_name','location','url'],columns=None)
 
 data_final = data.T
-data_final.to_csv('淘宝前8页耳机水数据.csv',encoding='gbk',index=False)
+data_final.to_csv('淘宝前8页耳机数据.csv',encoding='gbk',index=False)

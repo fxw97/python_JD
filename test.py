@@ -1,7 +1,9 @@
-import pandas as pd
-df=pd.DataFrame(columns=['a','b','c'])
-for i in range(1,4):
-    dic={'a':1,'b':2,'c':3}
-    data = pd.DataFrame(dic,index=[0])
-    df = pd.concat([df,data],axis=0)
-print(df)
+d =['','剧情','喜剧','恐怖','','伦理','']
+d_dropna = list(filter(None, d))    #去除列表空值，非常简单好用
+
+ls = ['a','b','c']
+print(''.join(ls)) # 'abc'
+'''
+注意： 
+空字符串 会被程序判定为 False 
+'''
